@@ -1,0 +1,18 @@
+[31mfatal[39m: Sun Sep 01 2024; Error: Carrito; /66d242bf26c269116ace2790
+[31mfatal[39m: Sun Sep 01 2024; TypeError: Cannot read properties of undefined (reading 'email'); /logout?
+[31mfatal[39m: Sun Sep 01 2024; Error: Ticket; /66d4b0dff14a4d4562d04041/purchase
+[31mfatal[39m: Sun Sep 01 2024; Error: Ticket; /66d4b0dff14a4d4562d04041/purchase
+[31mfatal[39m: Sun Sep 01 2024; Error: Ticket; /66d4b0dff14a4d4562d04041/purchase
+[31mfatal[39m: Sun Sep 01 2024; Error: Ticket; /66d4b0dff14a4d4562d04041/purchase
+[31mfatal[39m: Sun Sep 01 2024; Error: Ticket; /66d4b0dff14a4d4562d04041/purchase
+[31mfatal[39m: Sun Sep 01 2024; Error: Ticket; /66d4b0dff14a4d4562d04041/purchase
+[31mfatal[39m: Sun Sep 01 2024; Error: Ticket; /66d4b0dff14a4d4562d04041/purchase
+[31mfatal[39m: Sun Sep 01 2024; Error: Ticket; /66d4b0dff14a4d4562d04041/purchase
+[31mfatal[39m: Sun Sep 01 2024; Error: Ticket; /66d4b0dff14a4d4562d04041/purchase
+[31mfatal[39m: Sun Sep 01 2024; Error: Ticket; /66d4b0dff14a4d4562d04041/purchase
+[31mfatal[39m: Sun Sep 01 2024; Error: Ticket; /66d4b0dff14a4d4562d04041/purchase
+[31mfatal[39m: Sun Sep 01 2024; TypeError: TicketDTO.addAutoGenerate is not a function; /66d4b0dff14a4d4562d04041/purchase
+[31mfatal[39m: Sun Sep 01 2024; Error: [createTicket]: [Service::MDB]: tickets validation failed: purchaser: Path `purchaser` is required., amount: Path `amount` is required., purchase_datetime: Path `purchase_datetime` is required., code: Path `code` is required.; /66d4b0dff14a4d4562d04041/purchase
+[31mfatal[39m: Sun Sep 01 2024; Error: [createTicket]: [Service::MDB]: tickets validation failed: purchaser: Path `purchaser` is required., amount: Path `amount` is required., purchase_datetime: Path `purchase_datetime` is required., code: Path `code` is required.; /66d4b0dff14a4d4562d04041/purchase
+[31mfatal[39m: Sun Sep 01 2024; Error: [createTicket]: [Service::MDB]: tickets validation failed: purchaser: Path `purchaser` is required., amount: Path `amount` is required., purchase_datetime: Path `purchase_datetime` is required., code: Path `code` is required.; /66d4b0dff14a4d4562d04041/purchase
+[31mfatal[39m: Sun Sep 01 2024; TypeError: ticketGen.splice is not a function; /66d4b0dff14a4d4562d04041/purchase

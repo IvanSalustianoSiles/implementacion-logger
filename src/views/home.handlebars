@@ -1,0 +1,49 @@
+<div id="page">
+    <h1>Bienvenido, {{first_name}} {{last_name}}!</h1>
+    <h1>Productos</h1>
+    <div>
+        {{#each toSendArray}}
+            <div>
+                <h2>{{title}}</h2>
+                <img src={{thumbnail}} alt={{title}}>
+                <h3>${{price}}</h3>
+                <h4>Categoría: {{category}}</h4>
+                <p>{{description}}</p>
+                <h4>Quedan {{stock}} ejemplares</h4>
+            </div>
+            <button id={{_id}} class="addToCart">Agregar al carrito</button>      
+        {{/each}}
+    </div>
+    <span><a href='{{{toSendObject.prevLink}}}'>← {{{toSendObject.payload.prevPage}}}</a>| {{{toSendObject.payload.page}}} de {{{toSendObject.payload.totalPages}}} |<a href='{{{toSendObject.nextLink}}}'>{{{toSendObject.payload.nextPage}}} →</a></span>
+</div>
+<script>
+    const localPayload = {
+        totalDocs: {{{toSendObject.payload.totalDocs}}},
+        limit: {{{toSendObject.payload.limit}}},
+        totalPages: {{{toSendObject.payload.totalPages}}},
+        page: {{{toSendObject.payload.page}}},
+        pagingCounter: {{{toSendObject.payload.pagingCounter}}},
+        hasPrevPage: '{{{toSendObject.payload.hasPrevPage}}}',
+        hasNextPage: '{{{toSendObject.payload.hasNextPage}}}',
+        prevPage: '{{{toSendObject.payload.prevPage}}}', 
+        nextPage: '{{{toSendObject.payload.nextPage}}}',
+        nextLink: '{{{toSendObject.nextLink}}}',
+        prevLink: '{{{toSendObject.prevLink}}}'
+    }
+    const { totalDocs, limit, totalPages, page, pagingCounter, hasPrevPage, hasNextPage, prevPage, nextPage, nextLink, prevLink } = localPayload;
+    const addButtons = document.querySelectorAll(".addToCart");
+    let sendArray = []
+    addButtons.forEach(addButton => {
+        let buttonId = addButton.id;
+        addButton.addEventListener("click", () => {
+            let toSendObject = {add: true, ID: buttonId};
+            fetch("/products", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(toSendObject)
+            })
+        })
+    })
+</script>

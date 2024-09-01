@@ -1,0 +1,16 @@
+<div>
+    <form action={{postAction}} method="post">
+        <input placeholder="Correo electrónico" name="email" type="email" required="true">
+        <input placeholder="Contraseña" name="password" type="password">
+        {{#if showError}}
+            <div>
+                {{errorMessage}}
+            </div>
+        {{/if}}
+        <button type="submit">Ingresar</button>
+    </form>
+    <div>
+        <button onclick="window.location.replace('/api/auth/ghlogin')">Ingresar con GitHub</button>
+    </div>
+    <p>¿No tienes cuenta? Entonces <a href={{hrefReg}}>regístrate</a>.</p>
+</div>

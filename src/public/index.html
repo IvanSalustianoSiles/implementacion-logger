@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi app</title>
+</head>
+<body>
+    <h2>Agregar producto</h2>
+    <form action="/api/products" method="post" enctype="multipart/form-data">
+        <input placeholder="Title" type="text" id="title" name="title">
+        <input placeholder="Description" type="text" id="description" name="description">
+        <input placeholder="Price" type="number" id="price" name="price">
+        <input placeholder="Code" type="text" id="code" name="code">
+        <input placeholder="Stock" type="number" id="stock" name="stock">
+        <input placeholder="Category" type="text" id="category" name="category">
+        <input type="file" id="thumbnail" name="thumbnail">
+        <button type="submit">Cargar</button>
+    </form>
+</body>
+</html>

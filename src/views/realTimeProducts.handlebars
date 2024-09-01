@@ -1,0 +1,115 @@
+<div>
+    <h1>Productos en tiempo real</h1>
+    <h2>Agregar producto</h2>
+    <form id="formAdd">
+        <input placeholder="Title" type="text" id="title" name="title" required="true">
+        <input placeholder="Description" type="text" id="description" name="description" required="true">
+        <input placeholder="Price" type="number" id="price" name="price" required="true">
+        <input placeholder="Code" type="text" id="code" name="code" required="true">
+        <input placeholder="Stock" type="number" id="stock" name="stock" required="true">
+        <input placeholder="Category" type="text" id="category" name="category" required="true">
+        <input type="file" id="thumbnail" name="thumbnail" required="true">
+        <button onclick="sendProduct()" type="submit">Cargar</button>
+    </form>
+    <h2>Eliminar producto</h2>
+    <form id="formRemove">
+        <input placeholder="ID del producto" type="number" id="pid" name="pid" required="true">
+        <button onclick="deleteProduct()" type="submit">Eliminar</button>
+    </form>
+    <h2>Productos</h2>
+    <div id="divProducts">
+        {{#each toSendObject}}
+            <div id={{id}}>
+                <h2>{{title}}</h2>
+                <img src="/static/img/{{thumbnail}}" alt={{title}}>
+                <h3>${{price}}</h3>
+                <h4>Categoría: {{category}}</h4>
+                <p>{{description}}</p>
+                <h4>Quedan {{stock}} ejemplares</h4>
+            </div>      
+        {{/each}}
+    </div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socketClient = io();
+    const formAdd = document.getElementById("formAdd");
+    const formRemove = document.getElementById("formRemove");
+    let pid = document.getElementById("pid");
+    let divProducts = document.getElementById("divProducts");
+    let action = "";
+    let newProduct = {};
+    let actionObject = {};
+
+    formAdd.addEventListener("submit", (event) => {
+        event.preventDefault();
+    });
+    formRemove.addEventListener("submit", (event) => {
+        event.preventDefault();
+    });
+
+    const sendProduct = () => {
+        console.log("Agregando...");
+        newProduct = {
+            title: formAdd[0].value,
+            description: formAdd[1].value,
+            price: formAdd[2].value,
+            code: formAdd[3].value,
+            stock: formAdd[4].value,
+            category: formAdd[5].value,
+            thumbnail: formAdd[6].files[0].name
+        };
+        action = "add";
+        actionObject.newProduct = newProduct;
+        actionObject.productAction = action;
+        let formData = new FormData();
+        formData.append("archivo", formAdd[6].files[0]);
+        formData.append("json",JSON.stringify(actionObject));
+        fetch("/realtimeproducts", {
+            method: "POST",
+            body: formData
+        });
+    }
+
+    const deleteProduct = () => {
+        newProduct.id = formRemove[0].value;
+        console.log("Eliminando...");
+        socketClient.emit("pid", pid.value);
+        newProduct
+        action = "delete";
+        actionObject.newProduct = newProduct;
+        actionObject.productAction = action;
+        let formData = new FormData();
+        formData.append("json",JSON.stringify(actionObject));
+        fetch("/realtimeproducts", {
+            method: "POST",
+            body: formData
+        });
+    };
+
+    socketClient.on("addConfirmed", response => {
+        const {msg, toAddId} = response;
+        if (msg != "") {
+            let divProduct = document.createElement("div");
+            divProduct.id = toAddId;
+            divProduct.innerHTML = `
+                <h2>${newProduct.title}</h2>
+                <img src="/static/img/${newProduct.thumbnail}" alt=${newProduct.title}>
+                <h3>$${newProduct.price}</h3>
+                <h4>Categoría: ${newProduct.category}</h4>
+                <p>${newProduct.description}</p>
+                <h4>Quedan ${newProduct.stock} ejemplares</h4>
+            `
+            divProducts.append(divProduct);
+            console.log(msg);
+            console.log(`Su ID es "${toAddId}".`);
+        }
+    });
+
+    socketClient.on("deleteConfirmed", response => {
+        const {msg, pid} = response;
+        let toDeleteDiv = document.getElementById(`${pid}`);
+        divProducts.removeChild(toDeleteDiv);
+        console.log(msg);
+    });
+</script>
